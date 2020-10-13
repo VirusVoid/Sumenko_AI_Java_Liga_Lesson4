@@ -16,15 +16,19 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public boolean createOrder(Orders order) {
-        boolean result = false;
+    public ResponseEntity<?> createOrder(Orders order) {
+       /* boolean result = false;
         if (order.getName() != null && order.getPrice() != null) {
             if (isNumeric(order.getPrice().toString())) {
-                orderRepository.save(order);
+                orderRepository.saveOrder(order);
                 result = true;
             }
+        }*/
+
+        if (orderRepository.findById(order.getOrderId())!=null){
+            return new ResponseEntity<String>("Dublicate Entry: "+ order.getOrderId(), HttpStatus.IM_USED);
         }
-        return result;
+        else return ResponseEntity.status(HttpStatus.OK).body(order.getOrderId());
     }
 
     public boolean isNumeric(String strNum) {
