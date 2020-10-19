@@ -1,42 +1,51 @@
 package com.example.service.service;
 
-import com.example.service.repository.OrderRepository;
+import com.example.service.dao.OrderDAO;
+import com.example.service.model.Customers;
 import com.example.service.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 /**
- * Проверка на валидность
+ * Проверка на валидность заказа
  */
 @Component
 public class OrderService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderDAO orderDAO;
 
-    public ResponseEntity<?> createOrder(Orders order) {
-       /* boolean result = false;
-        if (order.getName() != null && order.getPrice() != null) {
-            if (isNumeric(order.getPrice().toString())) {
-                orderRepository.saveOrder(order);
-                result = true;
+    public ResponseEntity<String> createOrderForCustomer(Orders order) {
+
+        ArrayList<String> fields = new ArrayList<>();
+        String responseBody = "";
+        String currentCustomer = order.getCustomer_name();
+        if (currentCustomer == null || order.getOrder_name() == null || order.getPrice() == null) {
+            if (currentCustomer == null) {
+                fields.add("customer_name");
             }
-        }*/
-
-        if (orderRepository.findById(order.getOrderId())!=null){
-            return new ResponseEntity<String>("Dublicate Entry: "+ order.getOrderId(), HttpStatus.IM_USED);
+            if (order.getOrder_name() == null) {
+                fields.add("order_name");
+            }
+            if (order.getPrice() == null) {
+                fields.add("price");
+            }
+            for (String field : fields) {
+                responseBody += "Ошибка в поле " + field + ": проверьте имя и значение поля (not null)\n";
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+        } else {
+            if (orderDAO.findCustomerByName(currentCustomer) == null) {
+                Customers customer = Customers.builder().build();
+                customer.setName(currentCustomer);
+                orderDAO.createCustomer(customer);
+            }
+            orderDAO.saveOrder(order);
         }
-        else return ResponseEntity.status(HttpStatus.OK).body(order.getOrderId());
-    }
-
-    public boolean isNumeric(String strNum) {
-        try {
-            int d = Integer.parseInt(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
+        return ResponseEntity.status(HttpStatus.OK).body("Идентификатор созданного заказа: " + order.getId());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,7 @@ class OrderControllerTest {
     @Test
     void createOrderTest() throws Exception {
         Orders exampleOrder = Orders.builder()
-                .name("testName")
+                .order_name("testName")
                 .price(123)
                 .build();
 
@@ -42,10 +43,13 @@ class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
 
-        verify(orderService, times(1)).createOrder(any(Orders.class));
 
-        exampleOrder.setName("hello");
-        boolean answer = orderService.createOrder(exampleOrder);
-        assertEquals(answer, true);
+        verify(orderService, times(1)).createOrderForCustomer(any(Orders.class));
+        ResponseEntity result1 = orderService.createOrderForCustomer(exampleOrder);
+        assertEquals(result1.getStatusCodeValue(), 200);
+
+        exampleOrder.setOrder_name("hello");
+     /*   ResponseEntity answer = orderService.createOrder(exampleOrder);
+        assertEquals(answer, true);*/
     }
 }

@@ -16,17 +16,22 @@ class OrderServiceTest {
 
     @Test
     void createOrder() {
-        Orders order = Orders.builder()
-                .name("serviceExample")
-                .price(56)
-                .build();
-        boolean result = orderService.createOrder(order);
-        assertNotNull(result);
-        assertEquals(result, true);
+        Orders order = Orders.builder().build();
+        order.setCustomer_name("customerFirst");
+        order.setOrder_name("orderFirst");
+        order.setPrice(50);
 
-        int a = 87;
-        String s = "qwe";
-        assertEquals(orderService.isNumeric(String.valueOf(a)), true);
-        assertEquals(orderService.isNumeric(s),false);
+        Orders otherOrder = Orders.builder()
+                .customer_name("q")
+                .order_name("e")
+                .price(89)
+                .build();
+       /* ResponseEntity result = new ResponseEntity(HttpStatus.OK);
+        ResponseEntity result1 = orderService.createOrderForCustomer(otherOrder);*/
+        System.out.println(orderService.createOrderForCustomer(order));
+        //assertNotNull(result);
+       /* assertEquals(result, result1);
+        assertEquals(result.getStatusCodeValue(), 200);
+        assertEquals(result.getBody(), order.getId());*/
     }
 }

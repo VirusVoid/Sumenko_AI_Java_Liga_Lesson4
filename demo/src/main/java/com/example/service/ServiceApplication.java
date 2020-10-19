@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.service.dao.OrderDAO;
 import com.example.service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ServiceApplication {
 
 	@Autowired
+	private OrderDAO orderDAO;
 	private OrderService service;
 	//private OrderServiceForRep orderServiceForRep;
 	//

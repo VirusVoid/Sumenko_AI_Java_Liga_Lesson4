@@ -3,6 +3,7 @@ com/example/service/model/Orders.java
  com.example.service.model.Orders$OrdersBuilder
 com/example/service/model/Customer.java
  com.example.service.model.Customer
+ com.example.service.model.Customer$CustomerBuilder
 com/example/service/ServiceApplication.java
  com.example.service.ServiceApplication
 com/example/service/repository/OrderRepository.java
