@@ -3,9 +3,11 @@ package com.example.service.dao;
 import com.example.service.model.Customers;
 import com.example.service.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -17,12 +19,13 @@ import java.sql.SQLException;
  */
 @Repository
 public class OrderDAO {
-    private final JdbcTemplate jdbcTemplate;
-
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+  /*  @Autowired
     public OrderDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-    }
+    }*/
 
     public Orders saveOrder(Orders order) {
         String insertOrder = "insert into orders(customer_name, order_name, price) " +
@@ -62,7 +65,7 @@ public class OrderDAO {
     public Customers findCustomerByName(String name) {
         String sql = "select * from customers where name = ?";
         try {
-            return this.jdbcTemplate.queryForObject(
+            return (Customers) this.jdbcTemplate.queryForObject(
                     sql, new Object[]{name}, this::mapRowToCustomers);
         } catch (EmptyResultDataAccessException ex) {
             return null;

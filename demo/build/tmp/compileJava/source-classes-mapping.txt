@@ -1,6 +1,9 @@
 com/example/service/model/Orders.java
  com.example.service.model.Orders
  com.example.service.model.Orders$OrdersBuilder
+com/example/service/model/Customers.java
+ com.example.service.model.Customers
+ com.example.service.model.Customers$CustomersBuilder
 com/example/service/dao/OrderDAO.java
  com.example.service.dao.OrderDAO
 com/example/service/ServiceApplication.java
@@ -10,6 +13,3 @@ com/example/service/controller/OrderController.java
  com.example.service.controller.RestExceptionHandler
 com/example/service/service/OrderService.java
  com.example.service.service.OrderService
-com/example/service/model/Customers.java
- com.example.service.model.Customers
- com.example.service.model.Customers$CustomersBuilder

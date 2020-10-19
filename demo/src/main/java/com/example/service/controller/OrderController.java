@@ -1,7 +1,7 @@
 package com.example.service.controller;
 
-import com.example.service.model.Orders;
 import com.example.service.dao.OrderDAO;
+import com.example.service.model.Orders;
 import com.example.service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,11 +17,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @RestController
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
+    private OrderDAO orderDAO;
 
     @PostMapping(value = "/api/v1/order")
-    public ResponseEntity<String> createOrder(@RequestBody Orders order) {
+    public ResponseEntity<?> createOrder(@RequestBody Orders order) {
         return orderService.createOrderForCustomer(order);
     }
 }
@@ -29,8 +31,8 @@ public class OrderController {
 @ControllerAdvice
 class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
-    protected ResponseEntity handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                          HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return new ResponseEntity("Некорректный JSON запрос (статус: "+status+") \n"+ ex.toString(), HttpStatus.BAD_REQUEST);
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>("Некорректный JSON запрос (статус: "+status+") \n"+ ex.toString(), HttpStatus.BAD_REQUEST);
     }
 }

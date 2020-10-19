@@ -7,19 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 /**
  * Проверка на валидность заказа
  */
-@Component
+@Service
 public class OrderService {
 
     @Autowired
     private OrderDAO orderDAO;
 
-    public ResponseEntity<String> createOrderForCustomer(Orders order) {
+    public ResponseEntity createOrderForCustomer(Orders order) {
 
         ArrayList<String> fields = new ArrayList<>();
         String responseBody = "";
@@ -37,7 +38,8 @@ public class OrderService {
             for (String field : fields) {
                 responseBody += "Ошибка в поле " + field + ": проверьте имя и значение поля (not null)\n";
             }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+            return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
         } else {
             if (orderDAO.findCustomerByName(currentCustomer) == null) {
                 Customers customer = Customers.builder().build();
@@ -46,6 +48,7 @@ public class OrderService {
             }
             orderDAO.saveOrder(order);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Идентификатор созданного заказа: " + order.getId());
+        return new ResponseEntity<>("Идентификатор созданного заказа: " + order.getId(), HttpStatus.OK);
+        //return ResponseEntity.status(HttpStatus.OK).body("Идентификатор созданного заказа: " + order.getId());
     }
 }
