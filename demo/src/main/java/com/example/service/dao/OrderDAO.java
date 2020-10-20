@@ -3,11 +3,9 @@ package com.example.service.dao;
 import com.example.service.model.Customers;
 import com.example.service.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -22,7 +20,7 @@ public class OrderDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-  /*  @Autowired
+  /*
     public OrderDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }*/
