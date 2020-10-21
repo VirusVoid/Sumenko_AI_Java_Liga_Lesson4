@@ -20,11 +20,6 @@ public class OrderDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-  /*
-    public OrderDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }*/
-
     public Orders saveOrder(Orders order) {
         String insertOrder = "insert into orders(customer_name, order_name, price) " +
                 "values (?, ?, ?)";
@@ -33,7 +28,6 @@ public class OrderDAO {
         jdbcTemplate.update(con -> {
             PreparedStatement pst = con.prepareStatement(insertOrder,
                     new String[]{orderId});
-            // order.setOrderId((Long) keyHolder.getKey());
             pst.setString(1, order.getCustomer_name());
             pst.setString(2, order.getOrder_name());
             pst.setInt(3, order.getPrice());
@@ -52,7 +46,6 @@ public class OrderDAO {
         String emailAddress = customer.getName() + "@mail.ru";
         jdbcTemplate.update(con -> {
             PreparedStatement pst = con.prepareStatement(createCustomer);
-            // new String[]{customerId});
             pst.setString(1, customer.getName());
             pst.setString(2, emailAddress);
             return pst;

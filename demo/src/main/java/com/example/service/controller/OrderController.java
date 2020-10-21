@@ -20,7 +20,6 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-    private OrderDAO orderDAO;
 
     @PostMapping(value = "/api/v1/order")
     public ResponseEntity<?> createOrder(@RequestBody Orders order) {
