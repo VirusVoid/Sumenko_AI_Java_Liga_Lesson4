@@ -1,6 +1,6 @@
 package com.example.service.controller;
 
-import com.example.service.model.Orders;
+import com.example.service.model.Order;
 import com.example.service.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -30,23 +30,19 @@ class OrderControllerTest {
 
     @Test
     void createOrderTest() throws Exception {
-        Orders exampleOrder = Orders.builder()
-                .customer_name("customerFirst")
-                .order_name("testName")
+        Order exampleOrder = Order.builder()
+                .customer_id(1)
+                .name("testName")
                 .price(123)
                 .build();
 
         ObjectMapper mapper = new ObjectMapper();
-        orderService.createOrderForCustomer(exampleOrder);
+        orderService.createOrder(exampleOrder);
         this.mockMvc.perform(post("/api/v1/order")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(exampleOrder)))
                 .andExpect(status().isOk())
                 .andDo(print());
-        this.mockMvc.perform(post("/api/v1/order")
-                .param("customer1", "order1", "75"))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
     }
 }

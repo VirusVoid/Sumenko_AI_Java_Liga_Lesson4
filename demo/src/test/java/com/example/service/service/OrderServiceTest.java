@@ -1,8 +1,8 @@
 package com.example.service.service;
 
 import com.example.service.dao.OrderDAO;
-import com.example.service.model.Customers;
-import com.example.service.model.Orders;
+import com.example.service.model.Customer;
+import com.example.service.model.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class OrderServiceTest {
@@ -24,33 +25,17 @@ class OrderServiceTest {
     @Test
     void testCreateOrderForCustomer() {
 
-        Orders order = Orders.builder().build();
-        order.setCustomer_name("customerFirst");
-        order.setOrder_name("orderFirst");
-        order.setPrice(50);
-
-        ResponseEntity result = orderService.createOrderForCustomer(order);
-        Mockito.verify(orderDAO, Mockito.times(1)).saveOrder(order);
-        assertEquals(result.getStatusCodeValue(), 200);
-        assertEquals(result.getBody(), "Идентификатор созданного заказа: " + order.getId());
-        assertNotNull(order.getCustomer_name());
-        assertNotNull(order.getOrder_name());
-        assertNotNull(order.getPrice());
-    }
-
-    @Test
-    void testCreateCustomer() {
-        Customers customer = Customers.builder()
-                .name("John")
-                .email_address("John@mail.ru")
+        Order order = Order.builder()
+                .customer_id(1)
+                .name("orderFirst")
+                .price(50)
                 .build();
-
-        Mockito.doReturn(Customers.builder()
-                .name("John")
-                .email_address("John@mail.ru")
-                .build())
-                .when(orderDAO)
-                .findCustomerByName("John");
-        assertNull(orderDAO.createCustomer(customer));
+        ResponseEntity result = orderService.createOrder(order);
+        Mockito.verify(orderDAO, Mockito.times(1)).createOrder(order);
+        assertEquals(result.getStatusCodeValue(), 200);
+        assertEquals(result.getBody(), order.getId());
+        assertNotNull(order.getCustomer_id());
+        assertNotNull(order.getName());
+        assertNotNull(order.getPrice());
     }
 }

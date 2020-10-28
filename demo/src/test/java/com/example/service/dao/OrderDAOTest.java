@@ -1,32 +1,46 @@
 package com.example.service.dao;
 
-import com.example.service.model.Orders;
+import com.example.service.config.WebConfiguration;
+import com.example.service.model.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.KeyHolder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class OrderDAOTest {
 
-    @Autowired
     private OrderDAO orderDAO;
 
+    @Mock
+    private JdbcTemplate jdbcTemplate;
+
+    @Mock
+    private KeyHolder keyHolder = new WebConfiguration().keyHolder();
+
     @Test
-    void testSaveOrder() {
+    @BeforeEach
+    void init(){
+        MockitoAnnotations.initMocks(this);
+        orderDAO = new OrderDAO(jdbcTemplate, keyHolder);
+    }
 
-        Orders order = Orders.builder()
-                .customer_name("customer1")
-                .order_name("testName")
-                .price(75)
+    @Test
+    void createOrder() {
+        Order order = Order.builder()
+                .customer_id(1)
+                .name("first")
+                .price(400)
                 .build();
-
-        assertNotNull(order.getId());
-        assertEquals(order.getOrder_name(), "testName");
-        assertEquals(order.getCustomer_name(), "customer1");
-        order.setPrice(5);
-        assertEquals(order.getPrice(), 5);
+        Integer id = 1;
+        Mockito.when(keyHolder.getKey()).thenReturn(id);
+        assertEquals(id, orderDAO.createOrder(any(Order.class)).getId());
+        verify(keyHolder, times(1)).getKey();
+        verifyNoMoreInteractions(keyHolder);
     }
 }
