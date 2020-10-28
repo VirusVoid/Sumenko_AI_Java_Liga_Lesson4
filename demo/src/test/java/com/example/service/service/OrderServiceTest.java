@@ -1,7 +1,6 @@
 package com.example.service.service;
 
 import com.example.service.dao.OrderDAO;
-import com.example.service.model.Customer;
 import com.example.service.model.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -25,9 +25,6 @@ class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private OrderController orderController;
-
     @MockBean
     OrderService orderService;
 
