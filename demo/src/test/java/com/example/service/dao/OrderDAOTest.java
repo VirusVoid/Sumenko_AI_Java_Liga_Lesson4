@@ -13,6 +13,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Тестирование уровня DAO
+ */
 class OrderDAOTest {
 
     private OrderDAO orderDAO;

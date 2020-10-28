@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
- * Проверка на валидность заказа
+ * Проверка заказа на валидность
  */
 @Service
 public class OrderService {
@@ -16,6 +16,11 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
+    /**
+     * Создает новый заказ
+     * @param order заказ
+     * @return Http-статус=OK и id созданного заказа
+     */
     public ResponseEntity createOrder(Order order) {
         orderDAO.createOrder(order);
         return new ResponseEntity<>(order.getId(), HttpStatus.OK);

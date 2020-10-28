@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Тестрование уровня Service
+ */
 @SpringBootTest
 class OrderServiceTest {
 
@@ -23,7 +26,7 @@ class OrderServiceTest {
     private OrderDAO orderDAO;
 
     @Test
-    void testCreateOrderForCustomer() {
+    void testCreateOrder() {
 
         Order order = Order.builder()
                 .customer_id(1)

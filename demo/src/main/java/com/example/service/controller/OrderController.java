@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * Добавление заказа
+ * Обработка HTTP-запроса по созданию заказа
  */
 @RestController
 public class OrderController {
@@ -19,6 +19,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * Создает POST-запрос для создания заказа на сервере
+     * @param order заказ
+     * @return id созданного заказа и ответ сервера со статусом обработки запроса
+     */
     @PostMapping(value = "/api/v1/order")
     public ResponseEntity<?> createOrder(@Valid @RequestBody Order order) {
         return orderService.createOrder(order);
