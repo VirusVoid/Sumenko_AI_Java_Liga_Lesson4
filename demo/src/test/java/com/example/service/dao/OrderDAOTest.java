@@ -24,7 +24,7 @@ class OrderDAOTest {
     private JdbcTemplate jdbcTemplate;
 
     @Mock
-    private KeyHolder keyHolder = new WebConfiguration().keyHolder();
+    private KeyHolder keyHolder;
 
     @Test
     @BeforeEach
@@ -42,7 +42,7 @@ class OrderDAOTest {
                 .build();
         Integer id = 1;
         Mockito.when(keyHolder.getKey()).thenReturn(id);
-        assertEquals(id, orderDAO.createOrder(any(Order.class)).getId());
+        assertEquals(id, orderDAO.createOrder(eq(any(Order.class))).getId());
         verify(keyHolder, times(1)).getKey();
         verifyNoMoreInteractions(keyHolder);
     }

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.service.dao.OrderDAOTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2020-10-28T09:45:42" hostname="DESKTOP-4TIFPGS" time="0.939">
+<testsuite name="com.example.service.dao.OrderDAOTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2020-10-29T14:25:52" hostname="DESKTOP-4TIFPGS" time="0.855">
   <properties/>
-  <testcase name="createOrder()" classname="com.example.service.dao.OrderDAOTest" time="0.937">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;1&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;1&gt; but was: &lt;null&gt;
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:534)
-	at com.example.service.dao.OrderDAOTest.createOrder(OrderDAOTest.java:47)
+  <testcase name="createOrder()" classname="com.example.service.dao.OrderDAOTest" time="0.852">
+    <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
+	at com.example.service.dao.OrderDAOTest.createOrder(OrderDAOTest.java:45)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -99,7 +94,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:832)
 </failure>
   </testcase>
-  <testcase name="init()" classname="com.example.service.dao.OrderDAOTest" time="0.001"/>
+  <testcase name="init()" classname="com.example.service.dao.OrderDAOTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

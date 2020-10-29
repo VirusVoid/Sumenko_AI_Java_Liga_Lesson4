@@ -1,16 +1,16 @@
-com/example/service/dao/OrderDAO.java
- com.example.service.dao.OrderDAO
 com/example/service/model/Customer.java
  com.example.service.model.Customer
  com.example.service.model.Customer$CustomerBuilder
-com/example/service/config/WebConfiguration.java
- com.example.service.config.WebConfiguration
-com/example/service/model/Order.java
- com.example.service.model.Order
- com.example.service.model.Order$OrderBuilder
 com/example/service/ServiceApplication.java
  com.example.service.ServiceApplication
 com/example/service/controller/OrderController.java
  com.example.service.controller.OrderController
+com/example/service/model/Order.java
+ com.example.service.model.Order
+ com.example.service.model.Order$OrderBuilder
+com/example/service/config/WebConfiguration.java
+ com.example.service.config.WebConfiguration
+com/example/service/dao/OrderDAO.java
+ com.example.service.dao.OrderDAO
 com/example/service/service/OrderService.java
  com.example.service.service.OrderService

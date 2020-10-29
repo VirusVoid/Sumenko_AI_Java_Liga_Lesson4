@@ -19,12 +19,11 @@ public class OrderDAO {
     /**
      * Объект для выполнения запросов в базу данных
      */
-    @Autowired
     private final JdbcTemplate jdbcTemplate;
     /**
      * Генератор уникальных ключей
      */
-    private final KeyHolder keyHolder = new GeneratedKeyHolder();
+    private final KeyHolder keyHolder;
     /**
      * SQL-запрос на добавление заказа
      */
